@@ -1,4 +1,4 @@
-function getRandomStrikeValue(min, max) {
+function getRandomValue(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 const app = Vue.createApp({
@@ -24,19 +24,27 @@ const app = Vue.createApp({
   methods: {
     attackMonster() {
       this.currentRound++;
-      const strikeValue = getRandomStrikeValue(5, 12);
+      const strikeValue = getRandomValue(5, 12);
       this.monsterHealth -= strikeValue;
       this.attackPlayer();
     },
     attackPlayer() {
-      const strikeValue = getRandomStrikeValue(8, 15);
+      const strikeValue = getRandomValue(8, 15);
       this.playerHealth -= strikeValue;
     },
     specialAttack() {
       this.currentRound++;
-      const strikeValue = getRandomStrikeValue(10, 25);
+      const strikeValue = getRandomValue(10, 25);
       this.monsterHealth -= strikeValue;
       this.attackPlayer();
+    },
+    healPlayer() {
+      const healValue = getRandomValue(8, 20);
+      if (this.playerHealth + healValue > 100) {
+        this.playerHealth = 100;
+      } else {
+        this.playerHealth += healValue;
+      }
     },
   },
 });
